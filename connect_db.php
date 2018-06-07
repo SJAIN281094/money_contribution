@@ -1,4 +1,4 @@
-<?php
+<!--<?php
 function connect_db()
 {
 $db = new mysqli();
@@ -8,4 +8,4 @@ $data = $db->query($sql);
 $count = $data->num_rows;
 $db->close();
 }
-?>
+?>-->

@@ -21,11 +21,20 @@ $db->close();
     $_POST["log_password"] = md5($_POST["log_password"]); //ENCRYPT PASSWORD
     if($_POST["log_password"]==$data["Password"]){
           
-          // CREATE COOKIE AFTER LOGIN
+          /*CREATE COOKIE AFTER LOGIN
          setcookie("loginid",$data['Upr_id'],0,"/");
          $security = md5($_COOKIE["emailid"].$data["Password"]);
          setcookie("security",$security,0,"/");
+         header("Location:./create_group.php");*/
+
+         //CREATE SESSION AFTER LOGIN
+         session_start();
+         $_SESSION['loginid'] = $data['Upr_id'];
+         $security = md5($_SESSION["loginid"].$data["Password"]);
+         $_SESSION['security'] = $security;
+         var_dump($_SESSION['loginid']);
          header("Location:./create_group.php");
+
     }
     else{
       echo "Incorrect Password";

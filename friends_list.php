@@ -71,13 +71,14 @@ $db->close();
 	
 	<!--ADD FRIENDS NAME UID INTO DATABASE-->
 	<?php 
+	session_start();
 	$db = new mysqli();
 	$db->connect("localhost","root","budget_123","moneycontribution");
 	if(isset($_POST["friend_search"])){
 	$select = "SELECT * FROM `user_profile_required` WHERE `Name`='{$_POST["friend_search"]}'";
 	$friends = $db->query($select);
 	$friends = $friends->fetch_array();
-	$insert = "INSERT INTO `friends_added` SET `User`='{$_COOKIE["loginid"]}',`Friends`='{$friends["Upr_id"]}',`Grpname`='{$_POST["select_group"]}'";
+	$insert = "INSERT INTO `friends_added` SET `User`='{$_SESSION["loginid"]}',`Friends`='{$friends["Upr_id"]}',`Grpname`='{$_POST["select_group"]}'";
 	$db->query($insert);
 	$db->close(); 
     }
@@ -95,7 +96,8 @@ $db->close();
 			 $grp_select = $db->query($grp_select);
 			 //$count =  $friend_show->num_rows;
 			 $count_group = $grp_select->num_rows;
-
+			 
+		
 			 while($count_group>0){
 			 $grp_name = $grp_select->fetch_array();
 			 ?>
@@ -114,7 +116,8 @@ $db->close();
 			 	
 			 <?php
 			 // ADD FRIENDS NAMES IN GROUP AND DIPLAY IT
-			 $grp_friends = "SELECT user_profile_required.Name FROM `user_profile_required` INNER JOIN `friends_added` ON user_profile_required.Upr_id = friends_added.Friends WHERE friends_added.Grpname = '{$grp_name["Grpname"]}' AND friends_added.User = '{$_COOKIE["loginid"]}'";
+
+			 $grp_friends = "SELECT user_profile_required.Name FROM `user_profile_required` INNER JOIN `friends_added` ON user_profile_required.Upr_id = friends_added.Friends WHERE friends_added.Grpname = '{$grp_name["Grpname"]}' AND friends_added.User = '{$_SESSION["loginid"]}'";
 			 $grp_friends = $db->query($grp_friends);
 			 $count =  $grp_friends->num_rows;
 

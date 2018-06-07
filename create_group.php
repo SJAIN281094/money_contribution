@@ -8,7 +8,8 @@ if(!empty($_POST["mc_group_name"]))
 require_once("./connect_db.php");
 if(isset($_POST["mc_group_name"]))
 {
-$insert = "INSERT INTO `groups` SET `Grpname`='{$_POST["mc_group_name"]}',`Grp_crtd_by`='{$_COOKIE['loginid']}'";
+session_start();
+$insert = "INSERT INTO `groups` SET `Grpname`='{$_POST["mc_group_name"]}',`Grp_crtd_by`='{$_SESSION['loginid']}'";
 $insert = $db->query($insert);
 }
 $db->close();
