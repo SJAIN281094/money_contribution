@@ -1,14 +1,16 @@
-
 <?php
-//ENTER INTO DATABASE AND COLLECT DATA
-$value=0;
-if(isset($_POST['log_submit'])){
-	$value=1;
+// ENTER INTO DATABASE AND COLLECT LOGIN DATA
+$value = 0;
+if (isset($_POST['log_submit'])) {
+	$value = 1;
 }
 
-if(!empty($_POST["log_password"]) || !empty($_POST["log_password"])){
+$emailid = isset($_POST["log_emailid"]) ? $_POST["log_emailid"] : '';
+$password = isset($_POST["log_password"]) ? $_POST["log_password"] : '';
+
+if (!empty($emailid) && !empty($password)) {
 $db = new mysqli();
-$test = $db->connect("localhost","root","budget_123","moneycontribution");
+$test = $db->connect("localhost", "root", "budget_123", "moneycontribution");
 $data_collect_query = "SELECT * FROM `user_profile_required` WHERE `Email_id`='{$_POST["log_emailid"]}'";
 $data_collect = $db->query($data_collect_query);
 $data = $data_collect->fetch_array();
@@ -20,14 +22,9 @@ $db->close();
 // VALIDATE PASSWORD
     $_POST["log_password"] = md5($_POST["log_password"]); //ENCRYPT PASSWORD
     if($_POST["log_password"]==$data["Password"]){
-          
-          /*CREATE COOKIE AFTER LOGIN
-         setcookie("loginid",$data['Upr_id'],0,"/");
-         $security = md5($_COOKIE["emailid"].$data["Password"]);
-         setcookie("security",$security,0,"/");
-         header("Location:./create_group.php");*/
+     
 
-         //CREATE SESSION AFTER LOGIN
+         // Create session after login.
          session_start();
          $_SESSION['loginid'] = $data['Upr_id'];
          $security = md5($_SESSION["loginid"].$data["Password"]);
@@ -36,7 +33,7 @@ $db->close();
          header("Location:./create_group.php");
 
     }
-    else{
+      else{
       echo "Incorrect Password";
     }
 
@@ -56,12 +53,12 @@ $db->close();
  ?>
 
 
- <!--HTML CODE
- <link rel="stylesheet" type="text/css" href="../login/login.css">-->
+ <!-- HTML CODE -->
  <div id="login_frame">
-   <div class="log_budget"><h1 class="log_budget_txt">BUDGET</h1></div>
-   <div class="login"><h2 class="log_login_txt">LOG</h2></div>
-   <div class="form_login">
+    <h1 class="mc_heading">MONEY CONTRIBUTION</h1>
+    <div class="mc_logo"><a href="#"><img src="./images/logo.jpg" alt="mc-logo"></a></div>
+    <div class="login"><h2 class="log_login_txt">LOGIN</h2></div>
+    <div class="form_login">
      <form class="form_login_fields" action="./login.php" method="post">
        <div class="log_int_emailid">
          <span class="log_emailid">Email-id: </span>

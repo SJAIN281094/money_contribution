@@ -1,16 +1,11 @@
-
 <?php 
-$db = new mysqli();
-$db->connect("localhost","root","budget_123","moneycontribution");
-$select = "SELECT * FROM `friends_added` WHERE  `User`= '{$_COOKIE["loginid"]}' AND `Friends`='{$_GET["id"]}'";
-$select = $db->query($select);
-$check = $select->fetch_array();
-if($check){
-	$delete = "DELETE FROM `friends_added` WHERE `Friends` = '{$_GET["id"]}'";
+	session_start();
+	$db = new mysqli();
+	$db->connect("localhost","root","budget_123","moneycontribution");
+	$delete = "DELETE FROM `friends_added`
+			   WHERE `Friends_id` = '{$_GET["id"]}'
+			   AND `Grpname_id`= '{$_GET["gid"]}'";
 	$db->query($delete);
 	header('Location: ../friends_list.php');
-}
-else{
-	echo "FAKE USER";
-}
+	$db->close();
 ?>
