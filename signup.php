@@ -68,7 +68,7 @@
 
 			//CONTACT_NO
 			if(strlen($contact_number) == 10 || strlen($contact_number) == 0) {
-	  			$contact_pattern = "/(^[6-9][0-9]{9}$)*/";
+	  			$contact_pattern = "/^[6-9][0-9]{9}$/";
 				$contact_message = (!preg_match($contact_pattern,$contact_number)) ? "Use only numeric values in contact number" : "" ;  		
 	  		}
 			else {
