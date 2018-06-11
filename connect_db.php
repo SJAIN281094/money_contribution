@@ -1,37 +1,39 @@
 <?php 
- function select($query){
- 	$db = new mysqli();
-	$test = $db->connect("localhost","root","budget_123","moneycontribution");
-	$select = $query;
-	$select = $db->query($query);
-	$db->close();
- 	return $select;
- }
+	function connect(){
+		$db = new mysqli();
+		$test = $db->connect("localhost","root","budget_123","moneycontribution");
+		return $db;
+	}
 
-  function insert($query){
- 	$db = new mysqli();
-	$test = $db->connect("localhost","root","budget_123","moneycontribution");
-	$insert = $query;
-	$insert = $db->query($query);
-	$db->close();
- 	return $insert;
- }
+	function select($query){
+		$db = connect();
+		$select = $query;
+		$select = $db->query($query);
+		$db->close();
+		return $select;
+	}
 
-  function delete($query){
- 	$db = new mysqli();
-	$test = $db->connect("localhost","root","budget_123","moneycontribution");
-	$fetch = $query;
-	$fetch = $db->query($query);
-	$db->close();
- 	return $fetch;
- }
+	function insert($query){
+		$db = connect();
+		$insert = $query;
+		$insert = $db->query($query);
+		$db->close();
+		return $insert;
+	}
 
-  function update($query){
- 	$db = new mysqli();
-	$test = $db->connect("localhost","root","budget_123","moneycontribution");
-	$fetch = $query;
-	$fetch = $db->query($query);
-	$db->close();
- 	return $fetch;
- }
- ?>
+	function delete($query){
+		$db = connect();
+		$delete = $query;
+		$delete = $db->query($query);
+		$db->close();
+		return $delete;
+	}
+
+	function update($query){
+		$db = connect();
+		$update = $query;
+		$update = $db->query($query);
+		$db->close();
+		return $update;
+	}
+?>

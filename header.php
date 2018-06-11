@@ -13,7 +13,7 @@
 <head>
 <title>Money Contribution</title>
 <body>
-	<header class="mc_header">
+	<header id="mc_header">
 		<h1 class="mc_heading">MONEY CONTRIBUTION</h1>
 		<div class="mc_logo"><a href="login.php"><img src="images/mc_ico.png" alt="mc-logo"></a></div>
 		<div class="mc_username">

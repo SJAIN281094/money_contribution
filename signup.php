@@ -14,6 +14,7 @@
 	$email_message = "";
 	$contact_message = "";
 	$date_message = "";
+	$name_message = "";
 	 
 	if (isset($_POST['submit'])) {
 
@@ -31,14 +32,16 @@
 	  		// Fields validation
 
 			//Name
-	  		$name = addslashes($name);
+			$name_pattern = "/[a-zA-Z]+/"; 
+			preg_match_all($name_pattern,$name,$charc);
+			$charc = implode(" ",$charc[0]);
+	  		$name_message = !($charc == $name) ? "Invalid name (Only use alphabets)" :"";
 
 	  		// DOB
-	  		date_default_timezone_set("Asia/Calcutta");
 	  		$today = date("Y-m-d");
 	  		$dob = strtotime($dob);
 	  		$today = strtotime($today);
-	  		$td = gmdate("m-d-y",$today);  
+	  		$td = gmdate("m-d-y",$dob);  
 	  		$date_message = ($dob>$today) ? "Invalid Date "."(".$td.")" : "";
 	  		
 	 		//Emailid
@@ -46,11 +49,15 @@
 	  		if (preg_match ($email_pattern,$emailid)) {
 	  					
 				// Connect to database and run select query
-				$query = "SELECT user_profile_required.Email_id
+				$query = "SELECT user_profile_required.Email_id,user_profile_required.Upr_id 
 						  FROM `user_profile_required` 
 						  WHERE `Email_id` = '{$emailid}'";
 				$fetch = select($query);	
 				$email_count = $fetch->num_rows;
+				$uid = $fetch->fetch_array();
+
+
+				
 
 				$email_message =  (!$email_count == 0) ? "Email address already exist!" : "";
 
@@ -60,8 +67,8 @@
 			}
 
 			//CONTACT_NO
-			if(strlen($contact_number) == 10) {
-	  			$contact_pattern = "/^[7-9][0-9]{9}$/";
+			if(strlen($contact_number) == 10 || strlen($contact_number) == 0) {
+	  			$contact_pattern = "/(^[6-9][0-9]{9}$)*/";
 				$contact_message = (!preg_match($contact_pattern,$contact_number)) ? "Use only numeric values in contact number" : "" ;  		
 	  		}
 			else {
@@ -71,19 +78,22 @@
 			//PASSWORD
 			$password = md5($password);
 
+	
 			//INSERT FIELD VALUE IN DATABASE
-			if (empty($email_message) && empty($contact_message) && empty($date_message)) {
-				
+			if (empty($email_message) && empty($contact_message) && empty($date_message) && empty($name_message)) {
+			
 				// Connect to database and run insert query 
+
 				$query = "INSERT INTO `user_profile_required` SET
 					`Title`= '{$title}',
 					`Name`='{$name}',
 					`Email_id` = '{$emailid}',
 					`Password` = '{$password}',	
 					`status` = 1";
-				$check = insert($query);
+				insert($query);
 				
 				// Connect to database and run insert query
+
 				$query = "INSERT INTO `user_profile` SET
 					`Date_of_birth`= '{$dob}',
 					`Contact_No` = '{$contact_number}',
@@ -127,7 +137,8 @@
 		         			<option value="Mrs.">Miss.</option>
 		         			<option value="other">Other</option>
 		       			</select>
-		      			<input class="name_txt" type="text" name="name" value=<?php echo $name ?>>
+		       			
+		      			<input class="name_txt" type="text" name="name" value="<?php echo $name ?>"> <span ><?php echo ($name_message); ?></span> 
 		  			</div>
 
 			     	<div class="int_dob">
