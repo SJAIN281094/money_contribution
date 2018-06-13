@@ -1,3 +1,8 @@
+<?php 
+  	session_start();
+	if(isset($_SESSION["loginid"]) && isset($_SESSION["security"])){
+?>
+
 <!-- Include header -->
 <?php 
 	require_once("./header.php");
@@ -134,3 +139,10 @@
 	</div>
 
 </div>
+
+<?php 
+	}
+	else{
+		header("Location: login.php");
+	}
+?>

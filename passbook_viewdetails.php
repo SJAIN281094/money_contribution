@@ -1,3 +1,6 @@
+<?php 
+		if(isset($_SESSION["loginid"]) && isset($_SESSION["security"])){
+?>
 
 <div class="view_details<?php echo $i ?>">
 	<div class="pvd_labels">
@@ -39,3 +42,10 @@
 		}	
 	?>
 </div>
+
+<?php 
+	}
+	else{
+		header("Location: login.php");
+	}
+?>

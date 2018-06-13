@@ -1,5 +1,10 @@
-<!-- Include header -->
+<?php 
+   	session_start();
+	if(isset($_SESSION["loginid"]) && isset($_SESSION["security"])){
+ ?>
+
 <?php
+	// Include header 
 	require_once("header.php");
 	$group_message = "";
 ?>
@@ -132,3 +137,10 @@
 	?>
 	</div>	
 </section>
+
+<?php 
+	}
+	else{
+		header("Location: login.php");
+	}
+?>

@@ -1,5 +1,8 @@
 <?php 
-	session_start();
+	if(isset($_SESSION["loginid"]) && isset($_SESSION["security"])){
+?>
+
+<?php 
 	require_once("connect_db.php"); 
 		// Connect to database and run select query
 	 	$query = "SELECT user_profile_required.Name,user_profile_required.Title,title.Title_name
@@ -24,10 +27,17 @@
 				<a class="mc_add_friends" href="./friends_list.php"><span>Add Friends</span></a>
 				<a class="mc_add_expenditure" href="./expenditure.php"><span>Add Expenditure</span></a>
 				<a class="mc_passbook" href="passbook.php"><span>Passbook</span></a>
-				<a class="mc_logout" href="./login.php"><span>Logout</span></a>
+				<a class="mc_logout" href="./logout.php"><span>Logout</span></a>
 			</div>	
 		</div>
 	</header>
 </body>
 </head>
 </html>
+
+<?php 
+	}
+	else{
+		header("Location: login.php");
+	}
+?>

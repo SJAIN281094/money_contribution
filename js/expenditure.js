@@ -8,7 +8,7 @@ function request(){
 	var grp_name = select[0][option].value;
 	
 	ajax.onreadystatechange = response;
-	ajax.open('POST',"./js/ajaxresponse.php",true);
+	ajax.open('POST',"ajaxresponse.php",true);
 	ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	ajax.send( "grp_name="+grp_name);
 }
