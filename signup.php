@@ -56,9 +56,6 @@
 				$email_count = $fetch->num_rows;
 				$uid = $fetch->fetch_array();
 
-
-				
-
 				$email_message =  (!$email_count == 0) ? "Email address already exist!" : "";
 
 			}
@@ -76,13 +73,17 @@
 			}
 
 			//PASSWORD
-			$password = md5($password);
+			function encrypt($password){
+			$encryt_password = md5($password);
+			return $encryt_password;
+			}
+			$password = encrypt($password);
 
-	
 			//INSERT FIELD VALUE IN DATABASE
 			if (empty($email_message) && empty($contact_message) && empty($date_message) && empty($name_message)) {
 			
 				// Connect to database and run insert query 
+				
 
 				$query = "INSERT INTO `user_profile_required` SET
 					`Title`= '{$title}',
@@ -132,10 +133,10 @@
 		     		<div class="int_name">
 		      			<span class="name">Name*: </span>
 		      			<select class="title_selc" name="title">
-		         			<option value="Mr.">Mr.</option>
-		         			<option value="Mrs.">Mrs.</option>
-		         			<option value="Mrs.">Miss.</option>
-		         			<option value="other">Other</option>
+		         			<option value="1">Mr.</option>
+		         			<option value="2.">Mrs.</option>
+		         			<option value="3">Miss.</option>
+		         			<option value="4">Other</option>
 		       			</select>
 		       			
 		      			<input class="name_txt" type="text" name="name" value="<?php echo $name ?>"> <span ><?php echo ($name_message); ?></span> 

@@ -13,7 +13,6 @@
 				   WHERE `Grpname`='{$_POST["expn_groups"]}'";
 		$grp_id = $db->query($grp_id);
 		$grp_id = $grp_id->fetch_array();
-
 		$select = "SELECT friends_added.friends_id
 				   FROM `friends_added`
 				   WHERE  friends_added.Grpname_id = '{$grp_id["Group_id"]}'";

@@ -1,4 +1,5 @@
 <?php
+	require_once("connect_db.php"); 
 // Create database signup
 	$db = new mysqli();
 	$db->connect("localhost","root","budget_123");
@@ -68,7 +69,34 @@
 	Amount_paid INT(8))"; 
 	$expenditure = $db->query($expenditure);
 	$db->close();
-	?>
+	
 
+	//Title table
+	$db = new mysqli();
+	$db->connect("localhost","root","budget_123","moneycontribution");
+	$expenditure = "CREATE TABLE title(
+	Title_id INT AUTO_INCREMENT PRIMARY KEY,
+	Title_name VARCHAR(6))"; 
+	$expenditure = $db->query($expenditure);
+	$db->close();
+
+
+	$query = "INSERT INTO `title` SET
+					`Title_id`= 1,
+					`Title_name`='Mr.'";
+	insert($query);
+	$query = "INSERT INTO `title` SET
+					`Title_id`= 2,
+					`Title_name`='Mrs.'";
+	insert($query);
+	$query = "INSERT INTO `title` SET
+					`Title_id`= 3,
+					`Title_name`='Miss.'";
+	insert($query);
+	$query = "INSERT INTO `title` SET
+					`Title_id`= 4,
+					`Title_name`='Other'";
+	insert($query);
+	?>
 
 

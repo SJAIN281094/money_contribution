@@ -5,5 +5,5 @@
 			   WHERE `Friends_id` = '{$_GET["id"]}'
 			   AND `Grpname_id`= '{$_GET["gid"]}'";
 	$delete =  delete($query);
-	header('Location: ../friends_list.php');
+	header('Location: ../friends_list.php?status="Friend deleted"');
 ?>

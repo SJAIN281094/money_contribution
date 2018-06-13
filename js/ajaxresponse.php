@@ -25,10 +25,6 @@ while ($count_check > 0) {
 	$count_check--;
 }
 
-$user = array("Name"=>$user_name["Name"]."*");
-$user["Upr_id"] = $_SESSION["loginid"];
-
-$friends_check[] = $user;
 $friends_array = json_encode($friends_check);
 echo ($friends_array);
 

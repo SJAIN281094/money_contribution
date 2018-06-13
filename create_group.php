@@ -30,8 +30,26 @@
 				$grp_name = select($query);
 				$count_group_name = $grp_name->num_rows;
 				if($count_group_name == 0){	
+				
 				$query = "INSERT INTO `groups` SET `Grpname`='{$group_name}',`Grp_crtd_by`='{$_SESSION['loginid']}'";
 				$insert = insert($query);
+
+				// Add user into each group
+				$query = "SELECT groups.Group_id FROM `groups` WHERE groups.Grpname = '{$group_name}'";
+				$curr_grp_id = select($query);
+				$curr_grp_id = $curr_grp_id->fetch_array();
+
+				$query = "SELECT friends_added.Friends_id,friends_added.Grpname_id 
+					  FROM `friends_added` WHERE 
+					  friends_added.Friends_id = '{$_SESSION["loginid"]}' AND friends_added.Grpname_id = '{$curr_grp_id["Group_id"]}'";
+				$user_exist = select($query);
+				$count_user_exist =  $user_exist->num_rows;
+
+				if(!$count_user_exist) {
+					$query = "INSERT INTO `friends_added` SET `Friends_id`='{$_SESSION["loginid"]}',`Grpname_id`='{$curr_grp_id["Group_id"]}'";
+					insert($query);	
+				}
+
 				}
 				else{
 					$group_message = "Group already exist !!";
@@ -98,7 +116,11 @@
 		if(!$count==0){
 			while($count>0){
 				$friends_show = $grp_friends->fetch_array();
-				echo ($friends_show['Name']);
+				?>
+				
+				<span> <?php echo ($friends_show['Name']); ?> </span>
+
+				<?php
 				$count--;
 			}
 		}
