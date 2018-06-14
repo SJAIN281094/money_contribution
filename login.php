@@ -17,7 +17,8 @@
     $data = $data_collect->fetch_array();
 
     // VALIDATE EMAIL ADDRESS
-    if($_POST["log_emailid"]==$data['Email_id']){
+    if($_POST["log_emailid"]==$data['Email_id'] && $data['status'] == 1){
+
 
     // VALIDATE PASSWORD
       $_POST["log_password"] = md5($_POST["log_password"]); //ENCRYPT PASSWORD
@@ -29,7 +30,6 @@
            $_SESSION['loginid'] = $data['Upr_id'];
            $security = md5($_SESSION["loginid"].$data["Password"]);
            $_SESSION['security'] = $security;
-           var_dump($_SESSION['loginid']);
            header("Location:./create_group.php");
 
       }
@@ -39,7 +39,7 @@
 
       }
       else{
-        echo "Email-id not exist</br>";
+        echo "Login id not exist</br>";
         echo "Please signup first</br>";
         
           }
@@ -61,12 +61,12 @@
     <div class="form_login">
       <form class="form_login_fields" action="./login.php" method="post">
         <div class="log_int_emailid">
-         <span class="log_emailid">Email-id: </span>
-         <input class="log_emailid_txt" type="text" name="log_emailid" value="">
+         <span class="log_emailid">Login id: </span>
+         <input class="log_emailid_txt" type="text" name="log_emailid">
         </div>
         <div class="log_int_password">
          <span class="log_password">Password: </span>
-         <input class="log_password_txt" type="password" name="log_password" value="">
+         <input class="log_password_txt" type="password" name="log_password">
         </div>
         <div class="log_int_submit">
           <input class="log_submit_clk" type="submit" name="log_submit" value="Login">

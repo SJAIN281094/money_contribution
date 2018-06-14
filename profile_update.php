@@ -87,14 +87,6 @@
 	require_once("./header.php");
 ?>
 
-<?php 
-	}
-	else{
-		header("Location: login.php");
-	}
-?>
-
-
 <div id="update_profile">
     <div class="sign_up"> <h2 class="sign_up_txt">Profile Update</h2> </div>
 
@@ -154,5 +146,13 @@
        			<input class="submit" type="submit" name="submit" value="Update">
        		</div>
      	</form>
+     	<a href="deactivate.php"> Deactivate profile</a>
     </div>
 </div>
+
+<?php 
+	}
+	else{
+		header("Location: login.php");
+	}
+?>
