@@ -27,6 +27,7 @@
 				<a class="mc_add_friends" href="./friends_list.php"><span>Add Friends</span></a>
 				<a class="mc_add_expenditure" href="./expenditure.php"><span>Add Expenditure</span></a>
 				<a class="mc_passbook" href="passbook.php"><span>Passbook</span></a>
+				<a class="mc_passbook" href="profile_update.php"><span> Update Profile </span></a>
 				<a class="mc_logout" href="./logout.php"><span>Logout</span></a>
 			</div>	
 		</div>
