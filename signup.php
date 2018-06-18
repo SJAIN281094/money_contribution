@@ -53,8 +53,8 @@
 						  FROM `user_profile_required` 
 						  WHERE `Email_id` = '{$emailid}'";
 				$fetch = select($query);	
-				$email_count = $fetch->num_rows;
-				$uid = $fetch->fetch_array();
+				$email_count = $fetch->rowCount();
+				$uid = $fetch->fetch(PDO::FETCH_ASSOC);
 
 				$email_message =  (!$email_count == 0) ? "Email address already exist!" : "";
 
@@ -124,11 +124,14 @@
 		<title>Money Contribution</title>
 	<body>
 		<div id="signup">
+			
+			<div class="sgn_heading">
 			<h1 class="mc_heading">MONEY CONTRIBUTION</h1>
 		    <div class="mc_logo"><a href="#"><img src="./images/logo.jpg" alt="mc-logo"></a></div>
-		    <div class="sign_up"><h2  class="sign_up_txt">SIGNUP</h2></div>
+		    </div>
 
 		   	<div class="form_sinup">
+		   		<div class="sign_up"><h2  class="sign_up_txt">SIGNUP</h2></div>
 		    	<form class="form_signup_fields" action="./signup.php" method="POST" enctype="multipart/form-data">
 		     		<div class="int_name">
 		      			<span class="name">Name*: </span>

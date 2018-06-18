@@ -10,7 +10,7 @@
 	 			  INNER JOIN `Title` ON user_profile_required.Title = title.Title_id
 	 			  WHERE user_profile_required.Upr_id = '{$_SESSION["loginid"]}'";
 	 	$select = select($query);
-	 	$username = $select->fetch_array();
+	 	$username = $select->fetch(PDO::FETCH_ASSOC);
  ?>
 
 <!DOCTYPE html>

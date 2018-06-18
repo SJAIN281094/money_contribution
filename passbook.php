@@ -24,7 +24,7 @@
 			 WHERE groups.Grp_crtd_by = '{$_SESSION["loginid"]}' OR friends_added.Friends_id = '{$_SESSION["loginid"]}' 
 			 ORDER BY expenditure.Date";		
 	$fetch = select($query);
-	$count_entry = $fetch->num_rows; 
+	$count_entry = $fetch->rowCount(); 
  ?>
 
 <div class="passbook_frame">
@@ -46,23 +46,21 @@
 	$crt = 0;
 	$dbt = 0;
 	for ($i=1;$i<=$count_entry;$i++) {
-		$entry_data = $fetch->fetch_array();
+		$entry_data = $fetch->fetch(PDO::FETCH_ASSOC);
 	?>
 	
 	<!-- Passbook status and amount -->
 	<?php
-		$db = new mysqli();
-		$test = $db->connect("localhost","root","budget_123","moneycontribution");
-		$grp_id = "SELECT * FROM `groups`
+		$query = "SELECT * FROM `groups`
 				   WHERE `Grpname`='{$entry_data['Grpname']}'";
-		$grp_id = $db->query($grp_id);
-		$grp_id = $grp_id->fetch_array();
+		$grp_id = select($query);
+		$grp_id = $grp_id->fetch(PDO::FETCH_ASSOC);
 
-		$select = "SELECT friends_added.Friends_id
+		$query = "SELECT friends_added.Friends_id
 				   FROM `friends_added`
 				   WHERE  friends_added.Grpname_id = '{$grp_id["Group_id"]}'";
-		$select = $db->query($select);
-		$select = $select->num_rows;   
+		$select = select($query);
+		$select = $select->rowCount();   
 		$amount = (($entry_data['Amount_paid'])/($select));
 		$amount = $amount*($select-1);
 

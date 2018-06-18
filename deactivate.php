@@ -12,7 +12,7 @@
  <?php 
 	$query = "SELECT * FROM `user_profile_required` WHERE `Upr_id`='{$_SESSION["loginid"]}'";
 	$data_collect = select($query);
-	$data = $data_collect->fetch_array();
+	$data = $data_collect->fetch(PDO::FETCH_ASSOC);
 
 	if (isset($_POST['deactivate'])) {
 

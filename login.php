@@ -14,7 +14,7 @@
 
     $query = "SELECT * FROM `user_profile_required` WHERE `Email_id`='{$_POST["log_emailid"]}'";
     $data_collect = select($query);
-    $data = $data_collect->fetch_array();
+    $data = $data_collect->fetch(PDO::FETCH_ASSOC);
 
     // VALIDATE EMAIL ADDRESS
     if($_POST["log_emailid"]==$data['Email_id'] && $data['status'] == 1){

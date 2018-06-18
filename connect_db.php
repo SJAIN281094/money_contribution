@@ -1,39 +1,34 @@
 <?php 
 	function connect(){
-		$db = new mysqli();
-		$test = $db->connect("localhost","root","budget_123","moneycontribution");
+		$db = new PDO("mysql:host=localhost;dbname=moneycontribution","root","budget_123");
 		return $db;
 	}
 
 	function select($query){
 		$db = connect();
-		$select = $query;
 		$select = $db->query($query);
-		$db->close();
+		$db = null;
 		return $select;
 	}
 
 	function insert($query){
 		$db = connect();
-		$insert = $query;
 		$insert = $db->query($query);
-		$db->close();
+		$db = null;
 		return $insert;
 	}
 
 	function delete($query){
 		$db = connect();
-		$delete = $query;
 		$delete = $db->query($query);
-		$db->close();
+		$db = null;
 		return $delete;
 	}
 
 	function update($query){
 		$db = connect();
-		$update = $query;
 		$update = $db->query($query);
-		$db->close();
+		$db = null;
 		return $update;
 	}
 ?>

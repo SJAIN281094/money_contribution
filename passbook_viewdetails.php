@@ -16,16 +16,16 @@
 		 		  INNER JOIN `groups` ON friends_added.Grpname_id = groups.Group_id
 		 		  WHERE groups.Grpname = '{$entry_data["Grpname"]}'";
 		$friends_id = select($query);
-		$owe_count = $friends_id->num_rows;
+		$owe_count = $friends_id->rowCount();
 
 		while($owe_count>0){
-			$owe = $friends_id->fetch_array();
+			$owe = $friends_id->fetch(PDO::FETCH_ASSOC);
 				
 			$query = "SELECT user_profile_required.Name
 			 		  FROM `user_profile_required`   	 
 		 		 	  WHERE user_profile_required.Upr_id =  '{$owe["Friends_id"]}'";
 			$owe_name = select($query);
-			$owe_name = $owe_name->fetch_array();
+			$owe_name = $owe_name->fetch(PDO::FETCH_ASSOC);
 			
 				
 			if( $owe["Friends_id"] !== $entry_data['Paid_by_id']){		
