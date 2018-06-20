@@ -23,13 +23,13 @@
 		$query = "SELECT * FROM `groups`
 				   WHERE `Grpname`='{$_POST["expn_groups"]}'";
 		$grp_id = select($query);
-		$grp_id = $grp_id->fetch_array();
+		$grp_id = $grp_id->fetch(PDO::FETCH_ASSOC);
 
 		$query = "SELECT friends_added.friends_id
 				   FROM `friends_added`
 				   WHERE  friends_added.Grpname_id = '{$grp_id["Group_id"]}'";
 		$select = select($query);
-		$select = $select->num_rows; 
+		$select = $select->rowCount(); 
 
 		$amount = (($expn_paid)/($select + 1));
 
@@ -82,7 +82,7 @@
 	 		<?php
 				$query = "SELECT * FROM `groups` WHERE `Grp_crtd_by` = '{$_SESSION["loginid"]}'";
 				$fetch = select($query);
-				$count_group = $fetch->num_rows;
+				$count_group = $fetch->rowCount();
 			?>
 
 		Groups: <select class="expn_groups" name="expn_groups" onchange="request()">
@@ -91,7 +91,7 @@
 					<?php 
 						$grp_name = array();
 						while ( $count_group>0) {
-							$grp_data = $fetch->fetch_array();
+							$grp_data = $fetch->fetch(PDO::FETCH_ASSOC);
 					?>
 
 					<option value="<?php echo ($grp_data['Grpname']) ?>"> <?php echo ($grp_data['Grpname']); ?> </option>

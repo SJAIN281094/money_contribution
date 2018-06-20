@@ -33,7 +33,7 @@
 						  FROM `groups` WHERE `Grpname` = '{$group_name}'
 						  AND `Grp_crtd_by`='{$_SESSION['loginid']}'";
 				$grp_name = select($query);
-				$count_group_name = $grp_name->num_rows;
+				$count_group_name = $grp_name->rowCount();
 				if($count_group_name == 0){	
 				
 				$query = "INSERT INTO `groups` SET `Grpname`='{$group_name}',`Grp_crtd_by`='{$_SESSION['loginid']}'";
@@ -42,13 +42,13 @@
 				// Add user into each group
 				$query = "SELECT groups.Group_id FROM `groups` WHERE groups.Grpname = '{$group_name}'";
 				$curr_grp_id = select($query);
-				$curr_grp_id = $curr_grp_id->fetch_array();
+				$curr_grp_id = $curr_grp_id->fetch(PDO::FETCH_ASSOC);
 
 				$query = "SELECT friends_added.Friends_id,friends_added.Grpname_id 
 					  FROM `friends_added` WHERE 
 					  friends_added.Friends_id = '{$_SESSION["loginid"]}' AND friends_added.Grpname_id = '{$curr_grp_id["Group_id"]}'";
 				$user_exist = select($query);
-				$count_user_exist =  $user_exist->num_rows;
+				$count_user_exist =  $user_exist->rowCount();
 
 				if(!$count_user_exist) {
 					$query = "INSERT INTO `friends_added` SET `Friends_id`='{$_SESSION["loginid"]}',`Grpname_id`='{$curr_grp_id["Group_id"]}'";
@@ -88,12 +88,12 @@
 				  FROM `groups`
 				  WHERE `Grp_crtd_by`='{$_SESSION["loginid"]}'";
 		$grp_select = select($query);
-		$count_group = $grp_select->num_rows;
+		$count_group = $grp_select->rowCount();
 	?>
 	
 	<?php  	
 		while($count_group>0){
-			$grp_name = $grp_select->fetch_array();
+			$grp_name = $grp_select->fetch(PDO::FETCH_ASSOC);
 	?> 
 
 	<!-- Place friend's name in group -->
@@ -116,11 +116,11 @@
 				  WHERE friends_added.Grpname_id = '{$grp_name["Group_id"]}' 
 				  AND '{$grp_name["Grp_crtd_by"]}' = '{$_SESSION["loginid"]}'";
 		$grp_friends = select($query);
-		$count =  $grp_friends->num_rows;
+		$count =  $grp_friends->rowCount();
 
 		if(!$count==0){
 			while($count>0){
-				$friends_show = $grp_friends->fetch_array();
+				$friends_show = $grp_friends->fetch(PDO::FETCH_ASSOC);
 				?>
 				
 				<span> <?php echo ($friends_show['Name']); ?> </span>

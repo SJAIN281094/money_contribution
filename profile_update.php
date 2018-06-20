@@ -22,7 +22,7 @@
 			  INNER JOIN `title` ON user_profile_required.Title = title.Title_id
 			  WHERE user_profile_required.Upr_id = '{$_SESSION["loginid"]}'";
 	$profile = select($query);		 
-	$profile = $profile->fetch_array();
+	$profile = $profile->fetch(PDO::FETCH_ASSOC);
 	if (isset($_POST["submit"])) {
 
 		//Name
@@ -82,7 +82,7 @@
 			  INNER JOIN `title` ON user_profile_required.Title = title.Title_id
 			  WHERE user_profile_required.Upr_id = '{$_SESSION["loginid"]}'";
 	$profile = select($query);		 
-	$profile = $profile->fetch_array();
+	$profile = $profile->fetch(PDO::FETCH_ASSOC);
 
 	require_once("./header.php");
 ?>
