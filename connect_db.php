@@ -1,11 +1,40 @@
-<?php
-function connect_db()
-{
-$db = new mysqli();
-$test = $db->connect("localhost","root","budget_123","moneycontribution");
-$sql = "SELECT * FROM `user_profile_required`";
-$data = $db->query($sql);
-$count = $data->num_rows;
-$db->close();
-}
+<?php 
+	function connect(){
+		$db = new mysqli();
+		$test = $db->connect("localhost","root","budget_123","moneycontribution");
+		return $db;
+	}
+
+	function select($query){
+		$db = connect();
+		$select = $query;
+		$select = $db->query($query);
+		$db->close();
+		return $select;
+	}
+
+	function insert($query){
+		$db = connect();
+		$insert = $query;
+		$insert = $db->query($query);
+		$db->close();
+		return $insert;
+	}
+
+	function delete($query){
+		$db = connect();
+		$delete = $query;
+		$delete = $db->query($query);
+		$db->close();
+		return $delete;
+	}
+
+	function update($query){
+		$db = connect();
+		$update = $query;
+		$update = $db->query($query);
+		$db->close();
+		return $update;
+	}
 ?>
+
